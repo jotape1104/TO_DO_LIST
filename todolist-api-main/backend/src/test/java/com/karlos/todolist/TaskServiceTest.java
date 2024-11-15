@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-public class TaskServiceTest {
+class TaskServiceTest {
 
     @Mock
     private TaskRepository taskRepository;
@@ -31,7 +31,7 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void testCreateTask() {
+    void testCreateTask() {
         Task task = new Task();
         when(taskRepository.save(any(Task.class))).thenReturn(task);
 
@@ -42,7 +42,7 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void testListAllTasks() {
+    void testListAllTasks() {
         List<Task> tasks = new ArrayList<>();
         tasks.add(new Task());
         when(taskRepository.findAll()).thenReturn(tasks);
@@ -54,7 +54,7 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void testFindTaskByIdSuccess() {
+    void testFindTaskByIdSuccess() {
         Task task = new Task();
         when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
 
@@ -65,7 +65,7 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void testFindTaskByIdNotFound() {
+    void testFindTaskByIdNotFound() {
         when(taskRepository.findById(1L)).thenReturn(Optional.empty());
 
         ResponseEntity<Task> response = taskService.findTaskById(1L);
@@ -75,7 +75,7 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void testUpdateTaskByIdSuccess() {
+    void testUpdateTaskByIdSuccess() {
         Task task = new Task();
         task.setTaskName("Nova Tarefa");
         task.setDescription("Descrição da Tarefa");
@@ -92,7 +92,7 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void testUpdateTaskByIdNotFound() {
+    void testUpdateTaskByIdNotFound() {
         Task task = new Task();
         when(taskRepository.findById(1L)).thenReturn(Optional.empty());
 
@@ -103,7 +103,7 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void testDeleteTaskByIdSuccess() {
+    void testDeleteTaskByIdSuccess() {
         Task task = new Task();
         when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
         doNothing().when(taskRepository).deleteById(1L);
@@ -116,7 +116,7 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void testDeleteTaskByIdNotFound() {
+    void testDeleteTaskByIdNotFound() {
         when(taskRepository.findById(1L)).thenReturn(Optional.empty());
 
         ResponseEntity<String> response = taskService.deleteTaskById(1L);

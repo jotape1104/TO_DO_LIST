@@ -22,7 +22,7 @@ public class CorsConfigurationIntegrationTest {
                         .header("Origin", "http://localhost:3000")
                         .header("Access-Control-Request-Method", "GET"))
                 .andExpect(status().isOk())
-                .andExpect(header().string("Access-Control-Allow-Origin", "*"))
-                .andExpect(header().string("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS,HEAD,TRACE,CONNECT"));
+                .andExpect(header().string("Access-Control-Allow-Origin", "http://localhost:3000"))
+                .andExpect(header().string("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS"));
     }
 }

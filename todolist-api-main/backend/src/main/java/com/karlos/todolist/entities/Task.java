@@ -49,4 +49,9 @@ public class Task {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    public void setId(long l) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setId'");
+    }
 }

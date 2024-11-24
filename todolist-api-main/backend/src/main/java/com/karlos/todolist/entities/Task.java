@@ -8,8 +8,10 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String taskName;
+
     @Column(nullable = false)
     private String description;
 
@@ -50,8 +52,8 @@ public class Task {
                 '}';
     }
 
-    public void setId(long l) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setId'");
-    }
+    // Remover o método setId
+    // public void setId(long id) {
+    //     throw new UnsupportedOperationException("Unimplemented method 'setId'");
+    // }
 }

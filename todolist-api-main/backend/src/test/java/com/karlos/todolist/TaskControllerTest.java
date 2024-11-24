@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-public class TaskControllerTest {
+class TaskControllerTest {
 
     @InjectMocks
     private TaskController taskController;
@@ -24,7 +24,7 @@ public class TaskControllerTest {
     private TaskService taskService;
 
     @Test
-    public void testCreateTask_success() {
+    void testCreateTask_success() {
         // Arrange
         Task taskToCreate = new Task();
         ResponseEntity<String> expectedResponse = ResponseEntity.ok("Task created successfully");
@@ -38,7 +38,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void testCreateTask_failure() {
+    void testCreateTask_failure() {
         // Arrange
         Task taskToCreate = new Task();
         Mockito.when(taskService.createTask(taskToCreate)).thenThrow(RuntimeException.class);
@@ -48,7 +48,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void testGetAllTasks() {
+    void testGetAllTasks() {
         // Arrange
         List<Task> expectedTasks = List.of(new Task(), new Task());
         Mockito.when(taskService.listAllTasks()).thenReturn(expectedTasks);
@@ -61,7 +61,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void testGetTaskById_success() {
+    void testGetTaskById_success() {
         // Arrange
         Long taskId = 1L;
         Task expectedTask = new Task();
@@ -76,7 +76,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void testGetTaskById_notFound() {
+    void testGetTaskById_notFound() {
         // Arrange
         Long taskId = 1L;
         Mockito.when(taskService.findTaskById(taskId)).thenReturn(ResponseEntity.notFound().build());
@@ -89,7 +89,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void testUpdateTaskById_success() {
+    void testUpdateTaskById_success() {
         // Arrange
         Long taskId = 1L;
         Task updatedTask = new Task();
@@ -104,7 +104,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void testUpdateTaskById_failure() {
+    void testUpdateTaskById_failure() {
         // Arrange
         Long taskId = 1L;
         Task updatedTask = new Task();
@@ -115,7 +115,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void testDeleteTaskById_success() {
+    void testDeleteTaskById_success() {
         // Arrange
         Long taskId = 1L;
         ResponseEntity<String> expectedResponse = ResponseEntity.ok("Task deleted successfully");
@@ -129,7 +129,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void testDeleteTaskById_failure() {
+    void testDeleteTaskById_failure() {
         // Arrange
         Long taskId = 1L;
         Mockito.when(taskService.deleteTaskById(taskId)).thenThrow(RuntimeException.class);

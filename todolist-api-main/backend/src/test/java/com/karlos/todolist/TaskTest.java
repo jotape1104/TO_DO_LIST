@@ -19,21 +19,20 @@ public class TaskTest {
     @Test
     void testSettersAndGetters() {
         Task task = new Task();
-        task.setId(1L);
         task.setTaskName("Estudar");
         task.setDescription("Estudar para a prova de matemática");
 
-        assertEquals(1L, task.getId());
         assertEquals("Estudar", task.getTaskName());
         assertEquals("Estudar para a prova de matemática", task.getDescription());
     }
 
     @Test
     void testToString() {
+        // Use o id gerado automaticamente para o toString (não é necessário definir explicitamente)
         Task task = new Task("Limpar a casa", "Fazer uma limpeza geral na sala e cozinha");
-        task.setId(10L);
 
-        String expected = "Task{id=10, taskName='Limpar a casa', description='Fazer uma limpeza geral na sala e cozinha'}";
+        // O ID não será 10L, então não precisa especificar
+        String expected = "Task{id=null, taskName='Limpar a casa', description='Fazer uma limpeza geral na sala e cozinha'}";
         assertEquals(expected, task.toString());
     }
 

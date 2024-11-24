@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")  // Certifique-se de que o CORS está configurado corretamente
 @RestController
 @RequestMapping("/todolist/a3")
 public class TaskController {
@@ -41,4 +41,9 @@ public class TaskController {
         return taskService.deleteTaskById(id);
     }
 
+    // Opcional: Endpoint para tratar requisições OPTIONS
+    @RequestMapping(value = "/tasks/{id}", method = RequestMethod.OPTIONS)
+    public void handleOptionsRequest() {
+        // Este método pode ser usado para lidar com requisições OPTIONS (pré-vôo CORS)
+    }
 }

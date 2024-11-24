@@ -38,4 +38,4 @@ jobs:
         run: |
           mvn clean install  # Executa o build do projeto
           mvn sonar:sonar -Dsonar.projectKey=TesteToDoList -Dsonar.projectName='TesteToDoList'  # Executa a análise no SonarQube
-        working-directory: C:\Users\joaop\OneDrive\Documentos\A3_ToDoList\backend  # Caminho onde o pom.xml está localizado
+        working-directory: todolist-api-main/backend  # Caminho onde o pom.xml está localizado

@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+      - name: List Directory Structure
+        run: |
+          ls -R
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -15,7 +19,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build Backend with Maven
-        working-directory: todolist-api-main/backend # Navega até o diretório do backend
+        working-directory: TO_DO_LIST/todolist-api-main/backend # Navega até o diretório do backend
         run: |
           mvn clean install
           mvn test

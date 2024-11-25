@@ -1,0 +1,56 @@
+name: CI/CD with SonarQube
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build, Test and Analyze with SonarQube
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Java
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17' # Use the Java version required for your project
+          distribution: 'temurin'
+
+      # Cache Maven dependencies
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # Build the project and run tests
+      - name: Build and Test
+        run: mvn clean install
+
+      # Set up Sonar Scanner
+      - name: Download and setup Sonar Scanner
+        run: |
+          curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip -o sonar-scanner.zip
+          unzip sonar-scanner.zip -d $HOME/.sonar-scanner
+          echo "export PATH=\$PATH:\$HOME/.sonar-scanner/sonar-scanner-5.0.1.3006-linux/bin" >> $GITHUB_ENV
+
+      # Run Sonar Scanner analysis
+      - name: SonarQube Analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Add your SonarQube token as a GitHub secret
+        run: |
+          sonar-scanner \
+            -Dsonar.projectKey=your-project-key \
+            -Dsonar.host.url=https://your-sonarqube-server.com \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}

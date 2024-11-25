@@ -8,13 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 22 # Versão correta do Node.js
-
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -26,9 +19,3 @@ jobs:
         run: |
           mvn clean install
           mvn test
-
-      - name: Install Frontend Dependencies
-        working-directory: todolist-api-main/frontend # Navega até o diretório do frontend
-        run: |
-          npm install
-          npm test

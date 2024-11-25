@@ -6,17 +6,29 @@ jobs:
   build:
     name: Build and analyze
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v3
-      - name: Using Node.js
+
+      - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: v22.x
-      - name: Install and Tests
+          node-version: 22 # Versão correta do Node.js
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17' # Ajuste para a versão do Java usada no projeto
+          distribution: 'temurin'
+
+      - name: Build Backend with Maven
+        working-directory: todolist-api-main/backend # Navega até o diretório do backend
         run: |
-          mvn clean install 
+          mvn clean install
           mvn test
-      - name: Navigate to frontend directory
-        working-directory: todolist-api-main/frontend
-        run: npm install
+
+      - name: Install Frontend Dependencies
+        working-directory: todolist-api-main/frontend # Navega até o diretório do frontend
+        run: |
+          npm install
+          npm test

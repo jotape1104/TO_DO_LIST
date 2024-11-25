@@ -22,7 +22,7 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
-          java-version: '17' # Use the Java version required for your project
+          java-version: '17' # Use o Java necessário para seu projeto
           distribution: 'temurin'
 
       # Cache Maven dependencies
@@ -34,23 +34,31 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Build the project and run tests
+      # Navegar até o diretório backend
+      - name: Navigate to Backend Directory
+        working-directory: todolist-api-main/backend
+        run: echo "Navigated to backend directory"
+
+      # Build e Testes
       - name: Build and Test
+        working-directory: todolist-api-main/backend
         run: mvn clean install
 
-      # Set up Sonar Scanner
+      # Setup do Sonar Scanner
       - name: Download and setup Sonar Scanner
+        working-directory: todolist-api-main/backend
         run: |
           curl -sL https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip -o sonar-scanner.zip
           unzip sonar-scanner.zip -d $HOME/.sonar-scanner
           echo "export PATH=\$PATH:\$HOME/.sonar-scanner/sonar-scanner-5.0.1.3006-linux/bin" >> $GITHUB_ENV
 
-      # Run Sonar Scanner analysis
+      # Análise SonarQube
       - name: SonarQube Analysis
+        working-directory: todolist-api-main/backend
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Add your SonarQube token as a GitHub secret
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           sonar-scanner \
-            -Dsonar.projectKey=your-project-key \
-            -Dsonar.host.url=https://your-sonarqube-server.com \
+            -Dsonar.projectKey=TesteToDoList \
+            -Dsonar.host.url=http://localhost:9000 \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
